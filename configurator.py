@@ -36,7 +36,7 @@ class Configurator:
             cfile.write(json.dumps(self.config, indent=4))
 
     def get_value(self, key):
-        return self.config.get(key, False)
+        return self.config.get(key, None)
 
     def set_value(self, key, val):
         self.config.update({

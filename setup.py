@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name='Larva',
-    version='0.1',
-    py_modules=['larva', 'configurator', 'connector'],
+    version='0.2',
+    py_modules=['larva', 'configurator', 'connector', 'writer', 'commander', 'commands'],
     install_requires=[
         'Click',
         'thehive4py',
