@@ -1,11 +1,10 @@
 import click
-from configurator import Configurator
-import json
-from commander import Commander
+from .commander import Commander
 
 commander = Commander()
 
-# LARVA
+
+# LARVA GROUP
 @click.group()
 def larva():
     """
@@ -19,45 +18,49 @@ def larva():
 @click.command(name='list')
 def list_cases(**kwargs):
     """This lists all cases. Some options will get added, soon."""
-    commander.commands['list'].run()
+    commander.invoke('list', **kwargs)
 
 
-
+# CONFIG GROUP
 @click.group()
 def config():
     """Manage larva configuration"""
     pass
 
 
-# CONFIG
 @click.command()
 @click.option('--set', 'mode_set', type=str, help='Set an username', default=False)
 def username(mode_set):
     """Get and set username"""
-    commander.commands['config'].run(type='username',
-                                     mode_set=mode_set)
+    commander.invoke('config',
+                     type='username',
+                     mode_set=mode_set)
 
 
 @click.command()
 @click.option('--set', 'mode_set', type=str, help='Set an url', default=False)
 def url(mode_set):
     """Get and set url"""
-    commander.commands['config'].run(type='url',
-                                     mode_set=mode_set)
+    commander.invoke('config',
+                     type='url',
+                     mode_set=mode_set)
 
 
 @click.command(name='get')
 def get_config():
     """Dump the configuration file"""
-    commander.commands['config'].run(dump=True)
+    commander.invoke('config',
+                     dump=True)
+
 
 @click.command(name='clear')
 def clear_config():
     """Clears the configuration file"""
-    commander.commands['config'].run(clear=True)
+    commander.invoke('config',
+                     clear=True)
+# END CONFIG GROUP
+# END LARVA GROUP
 
-
-# Add cmds to groups
 larva.add_command(list_cases)
 larva.add_command(config)
 config.add_command(username)

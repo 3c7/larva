@@ -11,13 +11,14 @@ class Writer:
         self.colormap = [self.white, self.green, self.amber, self.red]
 
     def write_cases(self, cases):
-        echo('TLP\t\tSev.\tOwner\t\tTitle')
-        echo('---\t\t----\t-----\t\t-----')
+        echo('####\tTLP\t\tSev.\tOwner\t\tTitle')
+        echo('----\t---\t\t----\t-----\t\t-----')
         for case in cases:
-            echo('{}\t{}\t{}\t\t{}'.format(self.tlp(case.get('tlp')),
-                                           self.severity(case.get('severity')),
-                                           case.get('owner'),
-                                           case.get('title')))
+            echo('{}\t{}\t{}\t{}\t\t{}'.format(case.get('caseId'),
+                                               self.tlp(case.get('tlp')),
+                                               self.severity(case.get('severity')),
+                                               case.get('owner'),
+                                               case.get('title')))
 
     def tlp(self, t_num):
         return self.colormap[t_num](self.tlps[t_num])

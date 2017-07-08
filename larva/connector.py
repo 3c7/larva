@@ -1,17 +1,5 @@
 from thehive4py import api as thehiveapi
-
-
-class AuthenticationError(Exception):
-    pass
-
-
-class NoUsernameGivenError(Exception):
-    pass
-
-
-class NoURLGivenError(Exception):
-    pass
-
+from .exceptions import *
 
 class Connector:
     """
@@ -24,10 +12,10 @@ class Connector:
     """
     def __init__(self, username, password, url, proxies=None):
         if not username:
-            raise NoUsernameGivenError()
+            raise NoUsernameGivenError('no username given. Please add an username through the config subcommand.')
 
         if not url:
-            raise NoURLGivenError()
+            raise NoURLGivenError('no url given. Please add an url through the config subcommand.')
 
         self.username = username
         self.api = thehiveapi.TheHiveApi(username=username,
@@ -46,5 +34,5 @@ class Connector:
                                     sort=['-caseId'])
 
         if cases.status_code != 200:
-            raise AuthenticationError('Could not login as {}.'.format(self.username))
+            raise AuthenticationFailureError('Could not login as {}.'.format(self.username))
         return cases.json()

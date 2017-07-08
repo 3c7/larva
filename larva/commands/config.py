@@ -1,5 +1,5 @@
 from .command import Command
-from configurator import Configurator
+from ..configurator import Configurator
 from click import echo
 import json
 
